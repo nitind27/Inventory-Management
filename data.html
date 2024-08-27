@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Countdown Timer</title>
+    <link rel="stylesheet" href="styles.css" />
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .container {
+        text-align: center;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .timer {
+        font-size: 2em;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+        <h2>Task timer</h2>
+        also testing compleate
+      <h1>Countdown Timer</h1>
+      <div id="timer" class="timer"></div>
+    </div>
+    <!-- <script src="script.js"></script> -->
+    <script>
+      // Function to start the countdown timer
+      function startCountdown() {
+        const targetTime = new Date();
+        const now = new Date();
+
+        // Set the target time to today at 3:05 PM
+        targetTime.setHours(15, 5, 0, 0);
+
+        // If the target time has already passed today, set it for tomorrow
+        if (now > targetTime) {
+          targetTime.setDate(targetTime.getDate() + 1);
+        }
+
+        const timerElement = document.getElementById("timer");
+
+        const countdown = setInterval(() => {
+          const currentTime = new Date();
+          const timeDifference = targetTime - currentTime;
+
+          // Calculate hours, minutes, and seconds
+          const hours = Math.floor(
+            (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+          );
+          const minutes = Math.floor(
+            (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
+          );
+          const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+          // Display the result in the timer element
+          timerElement.innerHTML = `${hours}h ${minutes}m ${seconds}s`;
+
+          // If the countdown is finished, display a message
+          if (timeDifference < 0) {
+            clearInterval(countdown);
+            timerElement.innerHTML = "Time's up!";
+          }
+        }, 1000);
+      }
+
+      // Start the countdown when the page loads
+      window.onload = startCountdown;
+    </script>
+  </body>
+</html>
